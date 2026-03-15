@@ -1,11 +1,10 @@
-/* App layout - using class names in page.tsx */
-.appLayout {
+.layout {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.appHeader {
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14,12 +13,12 @@
   border-bottom: 1px solid var(--border-color);
 }
 
-.appTitle {
+.title {
   font-size: 24px;
   font-weight: 700;
 }
 
-.appNav {
+.nav {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -48,7 +47,36 @@
   background: var(--border-color);
 }
 
-.appMain {
+.content {
+  flex: 1;
+  display: flex;
+}
+
+.sidebar {
+  width: 220px;
+  padding: 24px;
+  border-right: 1px solid var(--border-color);
+  background: var(--card-bg);
+}
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebarLink {
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.sidebarLink:hover {
+  background: var(--border-color);
+}
+
+.main {
   flex: 1;
   padding: 24px;
+  max-width: 600px;
 }

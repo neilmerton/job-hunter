@@ -1,0 +1,105 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import { z } from 'zod';
+import styles from './settings-pages.module.css';
+
+const profileSchema = z.object({
+  displayName: z.string().min(1, 'Display name is required'),
+});
+
+type ProfileInput = z.infer<typeof profileSchema>;
+
+export default function ProfileSettingsPage() {
+  const [formData, setFormData] = useState<ProfileInput>({ displayName: '' });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const supabase = createClient();
+
+  useEffect(() => {
+    async function loadProfile() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from('user_profiles')
+          .select('display_name')
+          .eq('id', user.id)
+          .single();
+
+        setFormData({
+          displayName: profile?.display_name || user.user_metadata?.full_name || '',
+        });
+      }
+    }
+    loadProfile();
+  }, [supabase]);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setErrors({});
+    setSuccess(false);
+
+    const result = profileSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.issues.forEach((err) => {
+        const path = err.path?.[0] as string | undefined;
+        if (path && !fieldErrors[path]) fieldErrors[path] = err.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setLoading(true);
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      setErrors({ form: 'Not authenticated' });
+      setLoading(false);
+      return;
+    }
+
+    const { error } = await supabase
+      .from('user_profiles')
+      .upsert(
+        { id: user.id, display_name: result.data.displayName, updated_at: new Date().toISOString() },
+        { onConflict: 'id' }
+      );
+
+    setLoading(false);
+    if (error) {
+      setErrors({ form: error.message });
+      return;
+    }
+    setSuccess(true);
+  }
+
+  return (
+    <div>
+      <h2 className={styles.pageTitle}>Profile</h2>
+      <p className={styles.pageDescription}>Update your profile details.</p>
+
+      <form onSubmit={handleSubmit} className={styles.form}>
+        {errors.form && <div className={styles.error}>{errors.form}</div>}
+        {success && <div className={styles.success}>Profile updated successfully.</div>}
+
+        <div className={styles.field}>
+          <label htmlFor="displayName">Display name</label>
+          <input
+            id="displayName"
+            type="text"
+            value={formData.displayName}
+            onChange={(e) => setFormData({ ...formData, displayName: e.target.value })}
+            required
+          />
+          {errors.displayName && <span className={styles.fieldError}>{errors.displayName}</span>}
+        </div>
+
+        <button type="submit" className={styles.submit} disabled={loading}>
+          {loading ? 'Saving...' : 'Save changes'}
+        </button>
+      </form>
+    </div>
+  );
+}

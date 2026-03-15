@@ -1,0 +1,232 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { createClient } from '@/lib/supabase/client';
+import type { JobVacancy, JobUpdate } from '@/types/job';
+import { jobUpdateSchema, type JobUpdateInput } from '@/lib/validations/job';
+import styles from './JobCard.module.css';
+
+interface JobCardProps {
+  job: JobVacancy;
+  onUpdated: (job: JobVacancy) => void;
+  onDeleted: (jobId: string) => void;
+}
+
+function formatDate(dateStr: string) {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+}
+
+function formatDateTime(dateStr: string) {
+  const d = new Date(dateStr);
+  return d.toLocaleString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+function toDateTimeLocal(iso: string) {
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [updates, setUpdates] = useState<JobUpdate[]>([]);
+  const [formData, setFormData] = useState<JobUpdateInput>(() => ({
+    date: toDateTimeLocal(new Date().toISOString()),
+    description: '',
+  }));
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [saving, setSaving] = useState(false);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+
+    return draggable({
+      element: el,
+      getInitialData: () => ({
+        jobId: job.id,
+        status: job.status,
+      }),
+      onDragStart: () => setIsDragging(true),
+      onDrop: () => setIsDragging(false),
+    });
+  }, [job.id, job.status]);
+
+  useEffect(() => {
+    if (!expanded) return;
+
+    async function fetchUpdates() {
+      const { data } = await supabase
+        .from('job_updates')
+        .select('*')
+        .eq('job_vacancy_id', job.id)
+        .order('date', { ascending: false });
+      setUpdates(data ?? []);
+    }
+    fetchUpdates();
+  }, [expanded, job.id, supabase]);
+
+  async function handleAddUpdate(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setErrors({});
+
+    const result = jobUpdateSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.issues.forEach((err) => {
+        const path = err.path?.[0] as string | undefined;
+        if (path && !fieldErrors[path]) fieldErrors[path] = err.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setSaving(true);
+    const dateIso = new Date(result.data.date).toISOString();
+    const { error, data } = await supabase
+      .from('job_updates')
+      .insert({
+        job_vacancy_id: job.id,
+        date: dateIso,
+        description: result.data.description,
+      })
+      .select()
+      .single();
+
+    setSaving(false);
+    if (error) {
+      setErrors({ form: error.message });
+      return;
+    }
+    if (data) {
+      setUpdates((prev) => [data, ...prev]);
+      setFormData({
+        date: toDateTimeLocal(new Date().toISOString()),
+        description: '',
+      });
+    }
+  }
+
+  async function handleDeleteJob() {
+    if (!confirm('Are you sure you want to delete this job?')) return;
+
+    const { error } = await supabase.from('job_vacancies').delete().eq('id', job.id);
+    if (!error) onDeleted(job.id);
+  }
+
+  return (
+    <div
+      ref={cardRef}
+      className={`${styles.card} ${isDragging ? styles.dragging : ''}`}
+      data-job-id={job.id}
+    >
+      <details
+        className={styles.details}
+        open={expanded}
+        onToggle={(e) => setExpanded((e.target as HTMLDetailsElement).open)}
+      >
+        <summary className={styles.summary}>
+          <div className={styles.cardMain}>
+            <h4 className={styles.cardTitle}>{job.title}</h4>
+            <p className={styles.cardCompany}>{job.company}</p>
+            <p className={styles.cardDate}>{formatDate(job.date_applied)}</p>
+          </div>
+          <span className={styles.expandIcon}>{expanded ? '−' : '+'}</span>
+        </summary>
+
+        <div className={styles.expandedContent}>
+          <div className={styles.extraInfo}>
+            {job.contact_name && (
+              <p><strong>Contact:</strong> {job.contact_name}</p>
+            )}
+            {job.employment_type && (
+              <p><strong>Type:</strong> {job.employment_type}</p>
+            )}
+            {job.source && (
+              <p><strong>Source:</strong> {job.source}</p>
+            )}
+            {job.description && (
+              <p className={styles.description}><strong>Description:</strong> {job.description}</p>
+            )}
+          </div>
+
+          <div className={styles.updatesSection}>
+            <h5 className={styles.updatesTitle}>Updates</h5>
+
+            {updates.length > 0 && (
+              <ul className={styles.updatesList}>
+                {updates.map((update) => (
+                  <li key={update.id} className={styles.updateItem}>
+                    <time className={styles.updateDate} dateTime={update.date}>
+                      {formatDateTime(update.date)}
+                    </time>
+                    <p className={styles.updateDescription}>{update.description}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <form onSubmit={handleAddUpdate} className={styles.updateForm}>
+              {errors.form && <div className={styles.error}>{errors.form}</div>}
+
+              <div className={styles.field}>
+                <label htmlFor={`${job.id}-update-date`}>Date</label>
+                <input
+                  id={`${job.id}-update-date`}
+                  type="datetime-local"
+                  value={formData.date}
+                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                  required
+                />
+                {errors.date && <span className={styles.fieldError}>{errors.date}</span>}
+              </div>
+
+              <div className={styles.field}>
+                <label htmlFor={`${job.id}-update-description`}>Description</label>
+                <textarea
+                  id={`${job.id}-update-description`}
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  placeholder="e.g. Chased recruiter, had interview..."
+                  rows={3}
+                  required
+                />
+                {errors.description && (
+                  <span className={styles.fieldError}>{errors.description}</span>
+                )}
+              </div>
+
+              <div className={styles.formActions}>
+                <button type="submit" className={styles.saveButton} disabled={saving}>
+                  {saving ? 'Adding...' : 'Add update'}
+                </button>
+                <button
+                  type="button"
+                  className={styles.deleteButton}
+                  onClick={handleDeleteJob}
+                >
+                  Delete job
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </details>
+    </div>
+  );
+}

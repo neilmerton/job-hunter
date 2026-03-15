@@ -1,0 +1,43 @@
+.column {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+}
+
+.column.draggedOver {
+  background: rgba(37, 99, 235, 0.08);
+  border-color: var(--primary);
+}
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.columnTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.columnCount {
+  background: var(--border-color);
+  color: var(--text-secondary);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.columnContent {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
