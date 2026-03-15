@@ -1,4 +1,4 @@
-# Job Tracker
+# Job Hunter
 
 A Next.js application for tracking job applications. Users can sign up, log in, and manage job vacancies in a Kanban-style board with columns for Applied, Interviewing, Offer, and Rejected.
 
