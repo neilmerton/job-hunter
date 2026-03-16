@@ -1,17 +1,17 @@
 /* App layout - using class names in page.tsx */
 .appLayout {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100dvh;
 }
 
 .appHeader {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
   background: var(--card-bg);
   border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
 }
 
 .appTitle {
@@ -26,9 +26,13 @@
 }
 
 .navLink {
-  font-size: 14px;
+  border: 1px solid var(--primary);
+  border-radius: var(--border-radius);
   color: var(--primary);
+  font-size: 14px;
   font-weight: 500;
+  padding: var(--button-padding);
+  text-decoration: none;
 }
 
 .navLink:hover {
@@ -36,16 +40,19 @@
 }
 
 .navButton {
-  padding: 8px 16px;
-  background: transparent;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  font-size: 14px;
+  background: var(--primary);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--primary);
+  color: var(--foreground);
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  padding: var(--button-padding);
 }
 
 .navButton:hover {
-  background: var(--border-color);
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
 .appMain {
