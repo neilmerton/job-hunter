@@ -179,33 +179,9 @@
   margin-top: 8px;
 }
 
-.saveButton {
-  padding: 8px 16px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.saveButton:hover:not(:disabled) {
-  background: var(--primary-hover);
-}
-
-.saveButton:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
 .deleteButton {
-  padding: 8px 16px;
-  background: transparent;
   color: #c00;
-  border: 1px solid #c00;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
+  border-color: #c00;
 }
 
 .deleteButton:hover {

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import type { JobVacancy } from '@/types/job';
+import Button from '@/components/Button';
 import styles from '../settings-pages.module.css';
 
 function escapeCSV(value: string | null): string {
@@ -78,14 +79,14 @@ export default function ExportSettingsPage() {
         Download all your job vacancy data as a CSV file.
       </p>
 
-      <button
+      <Button
         type="button"
         onClick={handleExport}
         className={styles.submit}
         disabled={loading}
       >
         {loading ? 'Exporting...' : 'Export to CSV'}
-      </button>
+      </Button>
     </div>
   );
 }

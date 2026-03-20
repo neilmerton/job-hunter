@@ -5,6 +5,7 @@ import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { createClient } from '@/lib/supabase/client';
 import type { JobVacancy, JobUpdate } from '@/types/job';
 import { jobUpdateSchema, type JobUpdateInput } from '@/lib/validations/job';
+import Button from './Button';
 import styles from './JobCard.module.css';
 
 interface JobCardProps {
@@ -212,16 +213,17 @@ export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
               </div>
 
               <div className={styles.formActions}>
-                <button type="submit" className={styles.saveButton} disabled={saving}>
+                <Button type="submit" variant="primary" disabled={saving}>
                   {saving ? 'Adding...' : 'Add update'}
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
+                  variant="secondary"
                   className={styles.deleteButton}
                   onClick={handleDeleteJob}
                 >
                   Delete job
-                </button>
+                </Button>
               </div>
             </form>
           </div>

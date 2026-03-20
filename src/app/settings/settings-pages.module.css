@@ -79,43 +79,16 @@
 }
 
 .submit {
-  padding: 12px 24px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: var(--border-radius);
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
   width: fit-content;
 }
 
-.submit:hover:not(:disabled) {
-  background: var(--primary-hover);
-}
-
-.submit:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
 .dangerButton {
-  padding: 12px 24px;
   background: var(--danger-color);
   color: white;
   border: none;
-  border-radius: var(--border-radius);
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
   width: fit-content;
 }
 
 .dangerButton:hover:not(:disabled) {
   background: hsl(0, 100%, 30%);
-}
-
-.dangerButton:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }

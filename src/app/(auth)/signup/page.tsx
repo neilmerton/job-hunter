@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { signUpSchema, type SignUpInput } from '@/lib/validations/auth';
+import Button from '@/components/Button';
 import styles from '../auth.module.css';
 
 export default function SignUpPage() {
@@ -127,9 +128,9 @@ export default function SignUpPage() {
             {errors.password && <span className={styles.fieldError}>{errors.password}</span>}
           </div>
 
-          <button type="submit" className={styles.submit} disabled={loading}>
+          <Button type="submit" className={styles.submit} disabled={loading}>
             {loading ? 'Creating account...' : 'Sign up'}
-          </button>
+          </Button>
         </form>
 
         <p className={styles.footer}>

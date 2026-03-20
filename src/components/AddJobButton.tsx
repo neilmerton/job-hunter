@@ -1,12 +1,11 @@
 'use client';
 
-import { useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import type { JobVacancy } from '@/types/job';
 import type { JobVacancyInput } from '@/lib/validations/job';
 import JobForm from './JobForm';
 import Modal from './Modal';
-import styles from './AddJobButton.module.css';
+import Button from './Button';
 
 interface AddJobButtonProps {
   onJobAdded: (job: JobVacancy) => void;
@@ -57,13 +56,14 @@ export default function AddJobButton({ onJobAdded }: AddJobButtonProps) {
 
   return (
     <>
-      <button 
+      <Button 
         type="button" 
-        {...{ commandfor: dialogId, command: 'show-modal' } as any}
-        className={styles.addButton}
+        commandfor={dialogId} 
+        command="show-modal"
+        variant="primary"
       >
         Add
-      </button>
+      </Button>
 
       <Modal id={dialogId} title="Add job vacancy">
         <JobForm

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { z } from 'zod';
+import Button from '@/components/Button';
 import styles from '../settings-pages.module.css';
 
 const passwordSchema = z
@@ -113,9 +114,9 @@ export default function PasswordSettingsPage() {
           )}
         </div>
 
-        <button type="submit" className={styles.submit} disabled={loading}>
+        <Button type="submit" className={styles.submit} disabled={loading}>
           {loading ? 'Updating...' : 'Update password'}
-        </button>
+        </Button>
       </form>
     </div>
   );

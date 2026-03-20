@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { jobVacancySchema, type JobVacancyInput } from '@/lib/validations/job';
+import Button from './Button';
 import styles from './JobForm.module.css';
 
 interface JobFormProps {
@@ -178,12 +179,12 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
       </div>
 
       <div className={styles.formActions}>
-        <button type="button" className={styles.cancelButton} onClick={onCancel}>
+        <Button variant="secondary" onClick={onCancel}>
           Cancel
-        </button>
-        <button type="submit" className={styles.submitButton} disabled={loading}>
+        </Button>
+        <Button type="submit" variant="primary" disabled={loading}>
           {loading ? 'Saving...' : submitText}
-        </button>
+        </Button>
       </div>
     </form>
   );

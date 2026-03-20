@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { z } from 'zod';
+import Button from '@/components/Button';
 import styles from './settings-pages.module.css';
 
 const profileSchema = z.object({
@@ -96,9 +97,9 @@ export default function ProfileSettingsPage() {
           {errors.displayName && <span className={styles.fieldError}>{errors.displayName}</span>}
         </div>
 
-        <button type="submit" className={styles.submit} disabled={loading}>
+        <Button type="submit" className={styles.submit} disabled={loading}>
           {loading ? 'Saving...' : 'Save changes'}
-        </button>
+        </Button>
       </form>
     </div>
   );

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import Button from '@/components/Button';
 import styles from '../settings-pages.module.css';
 
 const CONFIRM_TEXT = 'DELETE';
@@ -70,13 +71,13 @@ export default function DeleteAccountSettingsPage() {
           )}
         </div>
 
-        <button
+        <Button
           type="submit"
           className={styles.dangerButton}
           disabled={loading || confirmText !== CONFIRM_TEXT}
         >
           {loading ? 'Deleting...' : 'Delete account'}
-        </button>
+        </Button>
       </form>
     </div>
   );
