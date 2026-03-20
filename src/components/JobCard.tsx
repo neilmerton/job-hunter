@@ -59,6 +59,7 @@ export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
 
     return draggable({
       element: el,
+      canDrag: () => !expanded,
       getInitialData: () => ({
         jobId: job.id,
         status: job.status,
@@ -66,7 +67,7 @@ export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
       onDragStart: () => setIsDragging(true),
       onDrop: () => setIsDragging(false),
     });
-  }, [job.id, job.status]);
+  }, [job.id, job.status, expanded]);
 
   useEffect(() => {
     if (!expanded) return;
