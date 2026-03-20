@@ -131,7 +131,7 @@ export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
   }
 
   return (
-    <div
+    <article
       ref={cardRef}
       className={`${styles.card} ${isDragging ? styles.dragging : ''}`}
       data-job-id={job.id}
@@ -168,6 +168,10 @@ export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
 
           <div className={styles.updatesSection}>
             <h5 className={styles.updatesTitle}>Updates</h5>
+
+            {updates.length === 0 && (
+              <p className={styles.noUpdates}>No updates yet.</p>
+            )}
 
             {updates.length > 0 && (
               <ul className={styles.updatesList}>
@@ -229,6 +233,6 @@ export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
           </div>
         </div>
       </details>
-    </div>
+    </article>
   );
 }
