@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import type { JobVacancy } from '@/types/job';
 import type { JobVacancyInput } from '@/lib/validations/job';
 import JobForm from './JobForm';
+import Modal from './Modal';
 import styles from './AddJobButton.module.css';
 
 interface AddJobButtonProps {
@@ -12,15 +13,14 @@ interface AddJobButtonProps {
 }
 
 export default function AddJobButton({ onJobAdded }: AddJobButtonProps) {
-  const [modalOpen, setModalOpen] = useState(false);
+  const dialogId = 'add-job-dialog';
   const supabase = createClient();
 
-  function openModal() {
-    setModalOpen(true);
-  }
-
   function closeModal() {
-    setModalOpen(false);
+    const dialog = document.getElementById(dialogId) as HTMLDialogElement | null;
+    if (dialog) {
+      dialog.close();
+    }
   }
 
   async function handleAddJob(data: JobVacancyInput) {
@@ -57,28 +57,21 @@ export default function AddJobButton({ onJobAdded }: AddJobButtonProps) {
 
   return (
     <>
-      <button type="button" onClick={openModal} className={styles.addButton}>
+      <button 
+        type="button" 
+        {...{ commandfor: dialogId, command: 'show-modal' } as any}
+        className={styles.addButton}
+      >
         Add
       </button>
 
-      {modalOpen && (
-        <div className={styles.overlay} onClick={closeModal}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <h3>Add job vacancy</h3>
-              <button type="button" className={styles.closeButton} onClick={closeModal}>
-                ×
-              </button>
-            </div>
-
-            <JobForm
-              onSubmit={handleAddJob}
-              onCancel={closeModal}
-              submitText="Add job"
-            />
-          </div>
-        </div>
-      )}
+      <Modal id={dialogId} title="Add job vacancy">
+        <JobForm
+          onSubmit={handleAddJob}
+          onCancel={closeModal}
+          submitText="Add job"
+        />
+      </Modal>
     </>
   );
 }
