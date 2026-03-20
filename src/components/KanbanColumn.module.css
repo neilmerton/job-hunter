@@ -3,8 +3,10 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   display: flex;
+  flex: 1;
   flex-direction: column;
   min-height: 400px;
+  min-width: 300px;
 }
 
 .column.draggedOver {

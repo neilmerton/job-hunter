@@ -16,10 +16,10 @@
 }
 
 .columns {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: 24px;
   min-height: 500px;
+  overflow-x: auto;
 }
 
 .loading {
@@ -27,16 +27,4 @@
   text-align: center;
   font-size: 18px;
   color: var(--text-secondary);
-}
-
-@media (max-width: 1200px) {
-  .columns {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .columns {
-    grid-template-columns: 1fr;
-  }
 }
