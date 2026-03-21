@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { authService } from '@/services/authService';
 import { signInSchema, type SignInInput } from '@/lib/validations/auth';
 import Button from '@/components/Button';
 import styles from '../auth.module.css';
@@ -17,14 +17,12 @@ export default function LoginPage() {
     email: '',
     password: '',
   });
-  const supabase = createClient();
-
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    authService.getUser().then((user) => {
       if (user) router.replace('/');
       setChecking(false);
-    });
-  }, [supabase.auth, router]);
+    }).catch(() => setChecking(false));
+  }, [router]);
 
   if (checking) {
     return <div className={styles.container}>Loading...</div>;
@@ -46,7 +44,7 @@ export default function LoginPage() {
     }
 
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword(result.data);
+    const { error } = await authService.signInWithPassword(result.data);
 
     if (error) {
       setErrors({ form: error.message });

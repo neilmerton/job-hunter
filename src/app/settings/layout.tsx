@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { createClient } from '@/lib/supabase/server';
+import { serverAuthService } from '@/services/authService.server';
 import LogoutButton from '@/components/LogoutButton';
 import SettingsSidebar from '@/components/SettingsSidebar';
 import styles from './settings.module.css';
@@ -10,8 +10,7 @@ export default async function SettingsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await serverAuthService.getUser();
 
   if (!user) {
     redirect('/login');

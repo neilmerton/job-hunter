@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { createClient } from '@/lib/supabase/client';
-import type { JobVacancy, JobUpdate } from '@/types/job';
+import { useJobUpdates } from '@/hooks/useJobUpdates';
+import { jobService } from '@/services/jobService';
+import type { JobVacancy } from '@/types/job';
 import { jobUpdateSchema, type JobUpdateInput } from '@/lib/validations/job';
 import Button from './Button';
 import styles from './JobCard.module.css';
@@ -40,18 +41,18 @@ function toDateTimeLocal(iso: string) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
-export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
+export default function JobCard({ job, onDeleted }: JobCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [updates, setUpdates] = useState<JobUpdate[]>([]);
+  const { updates, handleAddUpdate: addJobUpdate } = useJobUpdates(job.id, expanded);
+  
   const [formData, setFormData] = useState<JobUpdateInput>(() => ({
     date: toDateTimeLocal(new Date().toISOString()),
     description: '',
   }));
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
-  const supabase = createClient();
 
   useEffect(() => {
     const el = cardRef.current;
@@ -69,19 +70,6 @@ export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
     });
   }, [job.id, job.status, expanded]);
 
-  useEffect(() => {
-    if (!expanded) return;
-
-    async function fetchUpdates() {
-      const { data } = await supabase
-        .from('job_updates')
-        .select('*')
-        .eq('job_vacancy_id', job.id)
-        .order('date', { ascending: false });
-      setUpdates(data ?? []);
-    }
-    fetchUpdates();
-  }, [expanded, job.id, supabase]);
 
   async function handleAddUpdate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -100,15 +88,7 @@ export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
 
     setSaving(true);
     const dateIso = new Date(result.data.date).toISOString();
-    const { error, data } = await supabase
-      .from('job_updates')
-      .insert({
-        job_vacancy_id: job.id,
-        date: dateIso,
-        description: result.data.description,
-      })
-      .select()
-      .single();
+    const { error, data } = await addJobUpdate(dateIso, result.data.description);
 
     setSaving(false);
     if (error) {
@@ -116,7 +96,6 @@ export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
       return;
     }
     if (data) {
-      setUpdates((prev) => [data, ...prev]);
       setFormData({
         date: toDateTimeLocal(new Date().toISOString()),
         description: '',
@@ -127,8 +106,12 @@ export default function JobCard({ job, onUpdated, onDeleted }: JobCardProps) {
   async function handleDeleteJob() {
     if (!confirm('Are you sure you want to delete this job?')) return;
 
-    const { error } = await supabase.from('job_vacancies').delete().eq('id', job.id);
-    if (!error) onDeleted(job.id);
+    try {
+      await jobService.deleteJob(job.id);
+      onDeleted(job.id);
+    } catch (error) {
+      console.error('Error deleting job:', error);
+    }
   }
 
   return (

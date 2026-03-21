@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { authService } from '@/services/authService';
 import { signUpSchema, type SignUpInput } from '@/lib/validations/auth';
 import Button from '@/components/Button';
 import styles from '../auth.module.css';
@@ -18,14 +18,12 @@ export default function SignUpPage() {
     password: '',
     fullName: '',
   });
-  const supabase = createClient();
-
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    authService.getUser().then((user) => {
       if (user) router.replace('/');
       setChecking(false);
-    });
-  }, [supabase.auth, router]);
+    }).catch(() => setChecking(false));
+  }, [router]);
 
   if (checking) {
     return <div className={styles.container}>Loading...</div>;
@@ -48,12 +46,10 @@ export default function SignUpPage() {
 
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({
+      const { error } = await authService.signUp({
         email: result.data.email,
         password: result.data.password,
-        options: {
-          data: { full_name: result.data.fullName },
-        },
+        fullName: result.data.fullName,
       });
 
       if (error) {

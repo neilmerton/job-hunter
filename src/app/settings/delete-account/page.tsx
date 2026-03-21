@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { authService } from '@/services/authService';
 import Button from '@/components/Button';
 import styles from '../settings-pages.module.css';
 
@@ -13,8 +13,6 @@ export default function DeleteAccountSettingsPage() {
   const [confirmText, setConfirmText] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
-  const supabase = createClient();
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrors({});
@@ -37,7 +35,7 @@ export default function DeleteAccountSettingsPage() {
       return;
     }
 
-    await supabase.auth.signOut();
+    await authService.signOut();
     router.push('/login');
     router.refresh();
   }

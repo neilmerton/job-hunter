@@ -13,6 +13,7 @@ export default function Modal({ id, title, children }: ModalProps) {
       <div className={styles.modalHeader}>
         {typeof title === 'string' ? <h3>{title}</h3> : title}
         <button 
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           {...{ commandfor: id, command: 'close' } as any}
           type="button" 
           className={styles.closeButton}

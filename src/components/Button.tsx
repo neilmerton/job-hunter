@@ -12,6 +12,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const combinedClassName = `${styles.button} ${styles[variant]} ${className}`.trim();
 
     // Handling the new commandfor/command properties natively
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const invokerProps = commandfor || command ? { commandfor, command } as any : {};
 
     return (

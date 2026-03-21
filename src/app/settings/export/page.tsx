@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
+import { jobService } from '@/services/jobService';
 import type { JobVacancy } from '@/types/job';
 import Button from '@/components/Button';
 import styles from '../settings-pages.module.css';
@@ -47,20 +47,17 @@ function jobsToCSV(jobs: JobVacancy[]): string {
 
 export default function ExportSettingsPage() {
   const [loading, setLoading] = useState(false);
-  const supabase = createClient();
-
   async function handleExport() {
     setLoading(true);
-    const { data, error } = await supabase
-      .from('job_vacancies')
-      .select('*')
-      .order('date_applied', { ascending: true });
-
-    setLoading(false);
-    if (error) {
-      alert('Failed to export: ' + error.message);
+    let data: JobVacancy[] = [];
+    try {
+      data = await jobService.fetchJobs();
+    } catch (error) {
+      alert('Failed to export: ' + (error instanceof Error ? error.message : String(error)));
+      setLoading(false);
       return;
     }
+    setLoading(false);
 
     const csv = jobsToCSV(data || []);
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });

@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@/lib/supabase/client';
+import { authService } from '@/services/authService';
+import { profileService } from '@/services/profileService';
 import { z } from 'zod';
 import Button from '@/components/Button';
 import styles from './settings-pages.module.css';
@@ -17,25 +18,23 @@ export default function ProfileSettingsPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const supabase = createClient();
-
   useEffect(() => {
     async function loadProfile() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data: profile } = await supabase
-          .from('user_profiles')
-          .select('display_name')
-          .eq('id', user.id)
-          .single();
+      try {
+        const user = await authService.getUser();
+        if (user) {
+          const profile = await profileService.getProfile(user.id);
 
-        setFormData({
-          displayName: profile?.display_name || user.user_metadata?.full_name || '',
-        });
+          setFormData({
+            displayName: profile?.display_name || user.user_metadata?.full_name || '',
+          });
+        }
+      } catch (err) {
+        console.error('Error loading profile:', err);
       }
     }
     loadProfile();
-  }, [supabase]);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -54,26 +53,21 @@ export default function ProfileSettingsPage() {
     }
 
     setLoading(true);
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      setErrors({ form: 'Not authenticated' });
+    try {
+      const user = await authService.getUser();
+      if (!user) {
+        setErrors({ form: 'Not authenticated' });
+        return;
+      }
+      
+      await profileService.updateProfile(user.id, result.data.displayName);
+      setSuccess(true);
+    } catch (err) {
+      const errorStr = err instanceof Error ? err.message : 'Unknown error';
+      setErrors({ form: errorStr });
+    } finally {
       setLoading(false);
-      return;
     }
-
-    const { error } = await supabase
-      .from('user_profiles')
-      .upsert(
-        { id: user.id, display_name: result.data.displayName, updated_at: new Date().toISOString() },
-        { onConflict: 'id' }
-      );
-
-    setLoading(false);
-    if (error) {
-      setErrors({ form: error.message });
-      return;
-    }
-    setSuccess(true);
   }
 
   return (

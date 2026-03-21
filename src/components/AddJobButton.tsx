@@ -1,6 +1,7 @@
 'use client';
 
-import { createClient } from '@/lib/supabase/client';
+import { jobService } from '@/services/jobService';
+import { authService } from '@/services/authService';
 import type { JobVacancy } from '@/types/job';
 import type { JobVacancyInput } from '@/lib/validations/job';
 import JobForm from './JobForm';
@@ -13,7 +14,6 @@ interface AddJobButtonProps {
 
 export default function AddJobButton({ onJobAdded }: AddJobButtonProps) {
   const dialogId = 'add-job-dialog';
-  const supabase = createClient();
 
   function closeModal() {
     const dialog = document.getElementById(dialogId) as HTMLDialogElement | null;
@@ -23,34 +23,21 @@ export default function AddJobButton({ onJobAdded }: AddJobButtonProps) {
   }
 
   async function handleAddJob(data: JobVacancyInput) {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      throw new Error('Not authenticated');
-    }
+    try {
+      const user = await authService.getUser();
+      if (!user) {
+        throw new Error('Not authenticated');
+      }
 
-    const { error, data: insertedData } = await supabase
-      .from('job_vacancies')
-      .insert({
-        user_id: user.id,
-        ...data,
-        contact_name: data.contact_name || null,
-        contact_email: data.contact_email || null,
-        contact_mobile: data.contact_mobile || null,
-        description: data.description || null,
-        employment_type: data.employment_type || null,
-        source: data.source || null,
-        link: data.link || null,
-      })
-      .select()
-      .single();
-
-    if (error) {
+      const insertedData = await jobService.addJob(data, user.id);
+      
+      if (insertedData) {
+        onJobAdded(insertedData);
+        closeModal();
+      }
+    } catch (error) {
+      console.error('Failed to add job', error);
       throw error;
-    }
-
-    if (insertedData) {
-      onJobAdded(insertedData);
-      closeModal();
     }
   }
 

@@ -1,12 +1,11 @@
 import { redirect } from 'next/navigation';
-import { createClient } from '@/lib/supabase/server';
+import { serverAuthService } from '@/services/authService.server';
 import KanbanBoard from '@/components/KanbanBoard';
 import LogoutButton from '@/components/LogoutButton';
 import styles from './page.module.css';
 
 export default async function HomePage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await serverAuthService.getUser();
 
   if (!user) {
     redirect('/login');

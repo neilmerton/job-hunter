@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
+import { authService } from '@/services/authService';
 import { z } from 'zod';
 import Button from '@/components/Button';
 import styles from '../settings-pages.module.css';
@@ -28,7 +28,6 @@ export default function PasswordSettingsPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const supabase = createClient();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -47,17 +46,16 @@ export default function PasswordSettingsPage() {
     }
 
     setLoading(true);
-    const { error } = await supabase.auth.updateUser({
-      password: result.data.newPassword,
-    });
-
-    setLoading(false);
-    if (error) {
-      setErrors({ form: error.message });
-      return;
+    try {
+      await authService.updatePassword(result.data.newPassword);
+      setSuccess(true);
+      setFormData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    } catch (err) {
+      const errStr = err instanceof Error ? err.message : 'Error updating password';
+      setErrors({ form: errStr });
+    } finally {
+      setLoading(false);
     }
-    setSuccess(true);
-    setFormData({ currentPassword: '', newPassword: '', confirmPassword: '' });
   }
 
   return (

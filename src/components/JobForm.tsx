@@ -49,8 +49,9 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
     try {
       setLoading(true);
       await onSubmit(result.data);
-    } catch (err: any) {
-      setErrors({ form: err.message || 'An error occurred' });
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+      setErrors({ form: errorMessage });
     } finally {
       setLoading(false);
     }
