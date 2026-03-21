@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { serverAuthService } from '@/services/authService.server';
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   const user = await serverAuthService.getUser();
 
   if (!user) {
@@ -15,6 +15,4 @@ export async function POST(request: NextRequest) {
     const errorMsg = error instanceof Error ? error.message : 'Server error';
     return NextResponse.json({ error: errorMsg }, { status: 400 });
   }
-
-  return NextResponse.json({ success: true });
 }
