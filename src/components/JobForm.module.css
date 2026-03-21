@@ -1,4 +1,7 @@
 .form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
   padding: var(--space-2xl);
 }
 
@@ -8,13 +11,6 @@
   color: #c00;
   border-radius: var(--radius-sm);
   font-size: var(--text-md);
-  margin-bottom: var(--space-xl);
-}
-
-.formRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-xl);
   margin-bottom: var(--space-xl);
 }
 
