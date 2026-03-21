@@ -8,14 +8,14 @@
   padding: 0;
   color: var(--foreground);
   margin: 0;
-  
+
   position: fixed;
   inset: 0 0 0 auto;
 
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out,
-              display 0.3s ease-in-out allow-discrete,
-              overlay 0.3s ease-in-out allow-discrete;
+    display 0.3s ease-in-out allow-discrete,
+    overlay 0.3s ease-in-out allow-discrete;
 }
 
 @media (min-width: 768px) {
@@ -29,8 +29,8 @@
   backdrop-filter: blur(2px);
   opacity: 0;
   transition: opacity 0.3s ease-in-out,
-              display 0.3s ease-in-out allow-discrete,
-              overlay 0.3s ease-in-out allow-discrete;
+    display 0.3s ease-in-out allow-discrete,
+    overlay 0.3s ease-in-out allow-discrete;
 }
 
 .dialog[open] {
@@ -47,6 +47,7 @@
   .dialog[open] {
     transform: translateX(100%);
   }
+
   .dialog[open]::backdrop {
     opacity: 0;
   }
@@ -82,10 +83,12 @@
 }
 
 .modalContent {
+  flex: 1;
   overflow-y: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .dialog,
   .dialog::backdrop {
     transition: none;
