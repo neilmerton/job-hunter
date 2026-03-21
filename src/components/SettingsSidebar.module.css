@@ -5,17 +5,20 @@
 }
 
 .sidebarLink {
-  padding: var(--space-10) var(--space-lg);
-  font-size: var(--text-md);
   border-radius: 4px;
-}
-
-.sidebarLink:hover {
-  background: var(--border-color);
-}
-
-.sidebarLink.active {
-  background: rgba(37, 99, 235, 0.15);
   color: var(--primary);
-  font-weight: 500;
+  display: inline-block;
+  font-size: var(--text-md);
+  padding: var(--space-md) var(--space-lg);
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--border-color);
+  }
+
+  &.active {
+    background-color: rgba(37, 99, 235, 0.15);
+    color: var(--text-primary);
+    font-weight: 500;
+  }
 }
