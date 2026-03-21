@@ -1,10 +1,10 @@
 .header {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: var(--space-xl) var(--space-3xl);
   background: var(--card-bg);
   border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-xl) var(--space-3xl);
 }
 
 .title {
@@ -13,18 +13,20 @@
 }
 
 .nav {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: var(--space-xl);
 }
 
 .navLink {
-  font-size: var(--text-md);
   color: var(--primary);
+  display: inline-block;
+  font-size: var(--text-md);
   font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
   text-decoration: none;
-}
 
-.navLink:hover {
-  text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
+  }
 }
