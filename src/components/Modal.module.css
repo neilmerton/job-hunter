@@ -20,7 +20,7 @@
 
 @media (min-width: 768px) {
   .dialog {
-    max-width: 640px;
+    max-width: 512px;
   }
 }
 
@@ -54,12 +54,13 @@
 }
 
 .modalHeader {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: var(--space-2xl);
+  background-color: var(--card-bg);
   border-bottom: 1px solid var(--border-color);
-  background: var(--card-bg);
+  display: flex;
+  height: var(--modal-header-height);
+  justify-content: space-between;
+  padding-inline: var(--space-2xl);
 }
 
 .modalHeader h3 {
@@ -84,7 +85,7 @@
 
 .modalContent {
   flex: 1;
-  overflow-y: auto;
+  height: calc(100% - var(--modal-header-height));
 }
 
 @media (prefers-reduced-motion: reduce) {

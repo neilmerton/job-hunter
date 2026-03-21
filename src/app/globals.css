@@ -14,6 +14,7 @@
   --text-primary: hsl(0, 0%, 9%);
   --text-secondary: hsl(0, 0%, 40%);
   --warning-color: hsl(45, 100%, 51%);
+  --modal-header-height: 64px;
 
   /* Spacing */
   --space-xs: 2px;
@@ -28,15 +29,24 @@
   --space-5xl: 48px;
 
   /* Typography */
-  --text-xs: 0.6875rem; /* 11px */
-  --text-sm: 0.75rem; /* 12px */
-  --text-base: 0.8125rem; /* 13px */
-  --text-md: 0.875rem; /* 14px */
-  --text-lg: 0.9375rem; /* 15px */
-  --text-xl: 1.125rem; /* 18px */
-  --text-2xl: 1.25rem; /* 20px */
-  --text-3xl: 1.5rem; /* 24px */
-  --text-4xl: 1.75rem; /* 28px */
+  --text-xs: 0.6875rem;
+  /* 11px */
+  --text-sm: 0.75rem;
+  /* 12px */
+  --text-base: 0.8125rem;
+  /* 13px */
+  --text-md: 0.875rem;
+  /* 14px */
+  --text-lg: 0.9375rem;
+  /* 15px */
+  --text-xl: 1.125rem;
+  /* 18px */
+  --text-2xl: 1.25rem;
+  /* 20px */
+  --text-3xl: 1.5rem;
+  /* 24px */
+  --text-4xl: 1.75rem;
+  /* 28px */
 }
 
 @media (prefers-color-scheme: dark) {

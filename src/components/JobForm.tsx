@@ -65,128 +65,130 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
     <form onSubmit={handleSubmit} className={styles.form}>
       {errors.form && <div className={styles.error}>{errors.form}</div>}
 
-      <div className={styles.field}>
-        <label htmlFor="job-title">Job title</label>
-        <input
-          id="job-title"
-          value={formData.title}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-        {errors.title && <span className={styles.fieldError}>{errors.title}</span>}
-      </div>
+      <section className={styles.fields}>
+        <div className={styles.field}>
+          <label htmlFor="job-title">Job title</label>
+          <input
+            id="job-title"
+            value={formData.title}
+            onChange={(e) => handleChange(e)}
+            required
+          />
+          {errors.title && <span className={styles.fieldError}>{errors.title}</span>}
+        </div>
 
-      <div className={styles.field}>
-        <label htmlFor="job-company">Company</label>
-        <input
-          id="job-company"
-          value={formData.company}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-        {errors.company && <span className={styles.fieldError}>{errors.company}</span>}
-      </div>
+        <div className={styles.field}>
+          <label htmlFor="job-company">Company</label>
+          <input
+            id="job-company"
+            value={formData.company}
+            onChange={(e) => handleChange(e)}
+            required
+          />
+          {errors.company && <span className={styles.fieldError}>{errors.company}</span>}
+        </div>
 
-      <div className={styles.field}>
-        <label htmlFor="job-date">Date applied</label>
-        <input
-          id="job-date"
-          type="date"
-          value={formData.date_applied}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-      </div>
+        <div className={styles.field}>
+          <label htmlFor="job-date">Date applied</label>
+          <input
+            id="job-date"
+            type="date"
+            value={formData.date_applied}
+            onChange={(e) => handleChange(e)}
+            required
+          />
+        </div>
 
-      <div className={styles.field}>
-        <label htmlFor="job-employment">Employment type</label>
-        <select
-          id="job-employment"
-          value={formData.employment_type || ''}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              employment_type: e.target.value ? (e.target.value as JobVacancyInput['employment_type']) : null,
-            })
-          }
-        >
-          <option value="">Select...</option>
-          <option value="permanent">Permanent</option>
-          <option value="freelance">Freelance</option>
-          <option value="part-time">Part-time</option>
-        </select>
-      </div>
+        <div className={styles.field}>
+          <label htmlFor="job-employment">Employment type</label>
+          <select
+            id="job-employment"
+            value={formData.employment_type || ''}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                employment_type: e.target.value ? (e.target.value as JobVacancyInput['employment_type']) : null,
+              })
+            }
+          >
+            <option value="">Select...</option>
+            <option value="permanent">Permanent</option>
+            <option value="freelance">Freelance</option>
+            <option value="part-time">Part-time</option>
+          </select>
+        </div>
 
-      <div className={styles.field}>
-        <label htmlFor="job-contact">Contact name</label>
-        <input
-          id="job-contact"
-          value={formData.contact_name}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
+        <div className={styles.field}>
+          <label htmlFor="job-contact">Contact name</label>
+          <input
+            id="job-contact"
+            value={formData.contact_name}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
 
-      <div className={styles.field}>
-        <label htmlFor="job-email">Contact email</label>
-        <input
-          id="job-email"
-          type="email"
-          value={formData.contact_email}
-          onChange={(e) => handleChange(e)}
-        />
-        {errors.contact_email && (
-          <span className={styles.fieldError}>{errors.contact_email}</span>
-        )}
-      </div>
+        <div className={styles.field}>
+          <label htmlFor="job-email">Contact email</label>
+          <input
+            id="job-email"
+            type="email"
+            value={formData.contact_email}
+            onChange={(e) => handleChange(e)}
+          />
+          {errors.contact_email && (
+            <span className={styles.fieldError}>{errors.contact_email}</span>
+          )}
+        </div>
 
-      <div className={styles.field}>
-        <label htmlFor="job-mobile">Contact mobile</label>
-        <input
-          id="job-mobile"
-          type="tel"
-          value={formData.contact_mobile}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
+        <div className={styles.field}>
+          <label htmlFor="job-mobile">Contact mobile</label>
+          <input
+            id="job-mobile"
+            type="tel"
+            value={formData.contact_mobile}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
 
-      <div className={styles.field}>
-        <label htmlFor="job-source">Source</label>
-        <input
-          id="job-source"
-          value={formData.source}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
+        <div className={styles.field}>
+          <label htmlFor="job-source">Source</label>
+          <input
+            id="job-source"
+            value={formData.source}
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
 
-      <div className={styles.field}>
-        <label htmlFor="job-link">Link</label>
-        <input
-          id="job-link"
-          type="url"
-          value={formData.link}
-          onChange={(e) => handleChange(e)}
-        />
-        {errors.link && <span className={styles.fieldError}>{errors.link}</span>}
-      </div>
+        <div className={styles.field}>
+          <label htmlFor="job-link">Link</label>
+          <input
+            id="job-link"
+            type="url"
+            value={formData.link}
+            onChange={(e) => handleChange(e)}
+          />
+          {errors.link && <span className={styles.fieldError}>{errors.link}</span>}
+        </div>
 
-      <div className={styles.field}>
-        <label htmlFor="job-description">Description</label>
-        <textarea
-          id="job-description"
-          value={formData.description}
-          onChange={(e) => handleChange(e)}
-          rows={4}
-        />
-      </div>
+        <div className={styles.field}>
+          <label htmlFor="job-description">Description</label>
+          <textarea
+            id="job-description"
+            value={formData.description}
+            onChange={(e) => handleChange(e)}
+            rows={6}
+          />
+        </div>
+      </section>
 
-      <div className={styles.formActions}>
+      <footer className={styles.formActions}>
         <Button variant="secondary" onClick={onCancel}>
           Cancel
         </Button>
         <Button type="submit" variant="primary" disabled={loading}>
           {loading ? 'Saving...' : submitText}
         </Button>
-      </div>
+      </footer>
     </form>
   );
 }
