@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type SubmitEvent } from 'react';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { useJobUpdates } from '@/hooks/useJobUpdates';
 import { jobService } from '@/services/jobService';
@@ -46,7 +46,7 @@ export default function JobCard({ job, onDeleted }: JobCardProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const { updates, handleAddUpdate: addJobUpdate } = useJobUpdates(job.id, expanded);
-  
+
   const [formData, setFormData] = useState<JobUpdateInput>(() => ({
     date: toDateTimeLocal(new Date().toISOString()),
     description: '',
@@ -71,7 +71,7 @@ export default function JobCard({ job, onDeleted }: JobCardProps) {
   }, [job.id, job.status, expanded]);
 
 
-  async function handleAddUpdate(e: React.FormEvent<HTMLFormElement>) {
+  async function handleAddUpdate(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrors({});
 

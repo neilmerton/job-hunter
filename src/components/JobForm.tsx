@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type SubmitEvent } from 'react';
 import { jobVacancySchema, type JobVacancyInput } from '@/lib/validations/job';
 import Button from './Button';
 import styles from './JobForm.module.css';
@@ -31,7 +31,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrors({});
 

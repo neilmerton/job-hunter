@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type SubmitEvent } from 'react';
 import { authService } from '@/services/authService';
 import { profileService } from '@/services/profileService';
 import { z } from 'zod';
@@ -36,7 +36,7 @@ export default function ProfileSettingsPage() {
     loadProfile();
   }, []);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrors({});
     setSuccess(false);
@@ -59,7 +59,7 @@ export default function ProfileSettingsPage() {
         setErrors({ form: 'Not authenticated' });
         return;
       }
-      
+
       await profileService.updateProfile(user.id, result.data.displayName);
       setSuccess(true);
     } catch (err) {
