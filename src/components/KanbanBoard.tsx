@@ -88,12 +88,12 @@ export default function KanbanBoard() {
 
   return (
     <div className={styles.board}>
-      <div className={styles.boardHeader}>
+      <header className={styles.boardHeader}>
         <h2 className={styles.boardTitle}>Applications</h2>
         <AddJobButton onJobAdded={handleJobAdded} />
-      </div>
+      </header>
 
-      <div className={styles.columns}>
+      <section className={styles.columns}>
         {(['applied', 'interviewing', 'offer', 'rejected'] as JobStatus[]).map((status) => (
           <KanbanColumn
             key={status}
@@ -105,7 +105,7 @@ export default function KanbanBoard() {
             onJobDeleted={handleJobDeleted}
           />
         ))}
-      </div>
+      </section>
     </div>
   );
 }
