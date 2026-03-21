@@ -71,6 +71,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
         />
         {errors.title && <span className={styles.fieldError}>{errors.title}</span>}
       </div>
+
       <div className={styles.field}>
         <label htmlFor="job-company">Company</label>
         <input
@@ -81,6 +82,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
         />
         {errors.company && <span className={styles.fieldError}>{errors.company}</span>}
       </div>
+
       <div className={styles.field}>
         <label htmlFor="job-date">Date applied</label>
         <input
@@ -91,6 +93,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           required
         />
       </div>
+
       <div className={styles.field}>
         <label htmlFor="job-employment">Employment type</label>
         <select
@@ -109,6 +112,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           <option value="part-time">Part-time</option>
         </select>
       </div>
+
       <div className={styles.field}>
         <label htmlFor="job-contact">Contact name</label>
         <input
@@ -117,6 +121,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           onChange={(e) => setFormData({ ...formData, contact_name: e.target.value })}
         />
       </div>
+
       <div className={styles.field}>
         <label htmlFor="job-email">Contact email</label>
         <input
@@ -129,6 +134,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           <span className={styles.fieldError}>{errors.contact_email}</span>
         )}
       </div>
+
       <div className={styles.field}>
         <label htmlFor="job-mobile">Contact mobile</label>
         <input
@@ -138,6 +144,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           onChange={(e) => setFormData({ ...formData, contact_mobile: e.target.value })}
         />
       </div>
+
       <div className={styles.field}>
         <label htmlFor="job-source">Source</label>
         <input
