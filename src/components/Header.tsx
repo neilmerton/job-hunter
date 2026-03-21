@@ -9,7 +9,7 @@ interface HeaderProps {
 export default function Header({ currentView }: HeaderProps) {
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>Job Tracker</h1>
+      <h1 className={styles.title}>Job Hunter</h1>
       <nav className={styles.nav}>
         {currentView === 'settings' ? (
           <Link href="/" className={styles.navLink}>Board</Link>
