@@ -9,7 +9,7 @@ export const authService = {
       throw error;
     }
   },
-  
+
   async getUser() {
     const supabase = createClient();
     const { data: { user }, error } = await supabase.auth.getUser();
@@ -44,12 +44,13 @@ export const authService = {
       throw error;
     }
   },
+
   onAuthStateChange(callback: (user: User | null) => void) {
     const supabase = createClient();
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       callback(session?.user ?? null);
     });
-    
+
     return () => subscription.unsubscribe();
   }
 };
