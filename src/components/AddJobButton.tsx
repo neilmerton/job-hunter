@@ -1,12 +1,15 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { jobService } from '@/services/jobService';
 import { authService } from '@/services/authService';
 import type { JobVacancy } from '@/types/job';
 import type { JobVacancyInput } from '@/lib/validations/job';
-import JobForm from './JobForm';
+import dynamic from 'next/dynamic';
 import Modal from './Modal';
 import Button from './Button';
+
+const JobForm = dynamic(() => import('./JobForm'), { ssr: false });
 
 interface AddJobButtonProps {
   onJobAdded: (job: JobVacancy) => void;
@@ -14,6 +17,16 @@ interface AddJobButtonProps {
 
 export default function AddJobButton({ onJobAdded }: AddJobButtonProps) {
   const dialogId = 'add-job-dialog';
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const dialog = document.getElementById(dialogId) as HTMLDialogElement | null;
+    if (!dialog) return;
+
+    const handleClose = () => setIsOpen(false);
+    dialog.addEventListener('close', handleClose);
+    return () => dialog.removeEventListener('close', handleClose);
+  }, []);
 
   function closeModal() {
     const dialog = document.getElementById(dialogId) as HTMLDialogElement | null;
@@ -48,16 +61,19 @@ export default function AddJobButton({ onJobAdded }: AddJobButtonProps) {
         commandfor={dialogId} 
         command="show-modal"
         variant="primary"
+        onClick={() => setIsOpen(true)}
       >
         Add
       </Button>
 
       <Modal id={dialogId} title="Add job vacancy">
-        <JobForm
-          onSubmit={handleAddJob}
-          onCancel={closeModal}
-          submitText="Add job"
-        />
+        {isOpen && (
+          <JobForm
+            onSubmit={handleAddJob}
+            onCancel={closeModal}
+            submitText="Add job"
+          />
+        )}
       </Modal>
     </>
   );
