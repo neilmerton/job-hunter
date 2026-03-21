@@ -1,45 +1,45 @@
 .pageTitle {
-  font-size: 24px;
+  font-size: var(--text-3xl);
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-md);
 }
 
 .pageDescription {
-  font-size: 14px;
+  font-size: var(--text-md);
   color: var(--text-secondary);
-  margin-bottom: 24px;
+  margin-bottom: var(--space-3xl);
 }
 
 .warning {
-  padding: 16px;
+  padding: var(--space-xl);
   background: #fef3cd;
   border: 1px solid var(--warning-color);
   border-radius: var(--border-radius);
   color: var(--warning-color);
-  margin-bottom: 16px;
-  font-size: 14px;
+  margin-bottom: var(--space-xl);
+  font-size: var(--text-md);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-2xl);
 }
 
 .error {
-  padding: 12px;
+  padding: var(--space-lg);
   background: #fee;
   color: #c00;
   border-radius: var(--border-radius);
-  font-size: 14px;
+  font-size: var(--text-md);
 }
 
 .success {
-  padding: 12px;
+  padding: var(--space-lg);
   background: #d4edda;
   color: #155724;
   border-radius: var(--border-radius);
-  font-size: 14px;
+  font-size: var(--text-md);
 }
 
 .field {
@@ -49,15 +49,15 @@
 }
 
 .field label {
-  font-size: 14px;
+  font-size: var(--text-md);
   font-weight: 500;
 }
 
 .field input {
-  padding: 10px 12px;
+  padding: var(--space-10) var(--space-lg);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .field input:focus {
@@ -74,7 +74,7 @@
 }
 
 .fieldError {
-  font-size: 12px;
+  font-size: var(--text-sm);
   color: #c00;
 }
 

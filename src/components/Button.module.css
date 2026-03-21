@@ -1,7 +1,7 @@
 .button {
-  padding: 10px 20px;
+  padding: var(--space-10) var(--space-2xl);
   border-radius: 4px;
-  font-size: 14px;
+  font-size: var(--text-md);
   font-weight: 500;
   cursor: pointer;
   font-family: inherit;
@@ -9,7 +9,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-md);
 }
 
 .button:disabled {

@@ -8,24 +8,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
+  padding: var(--space-xl) var(--space-3xl);
   background: var(--card-bg);
   border-bottom: 1px solid var(--border-color);
 }
 
 .title {
-  font-size: 24px;
+  font-size: var(--text-3xl);
   font-weight: 700;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--space-xl);
 }
 
 .navLink {
-  font-size: 14px;
+  font-size: var(--text-md);
   color: var(--primary);
   font-weight: 500;
 }
@@ -35,11 +35,11 @@
 }
 
 .navButton {
-  padding: 8px 16px;
+  padding: var(--space-md) var(--space-xl);
   background: transparent;
   border: 1px solid var(--border-color);
   border-radius: 4px;
-  font-size: 14px;
+  font-size: var(--text-md);
   cursor: pointer;
 }
 
@@ -54,7 +54,7 @@
 
 .sidebar {
   width: 220px;
-  padding: 24px;
+  padding: var(--space-3xl);
   border-right: 1px solid var(--border-color);
   background: var(--card-bg);
 }
@@ -62,12 +62,12 @@
 .sidebarNav {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-sm);
 }
 
 .sidebarLink {
-  padding: 10px 12px;
-  font-size: 14px;
+  padding: var(--space-10) var(--space-lg);
+  font-size: var(--text-md);
   border-radius: 4px;
 }
 
@@ -77,6 +77,6 @@
 
 .main {
   flex: 1;
-  padding: 24px;
+  padding: var(--space-3xl);
   max-width: 600px;
 }

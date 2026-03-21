@@ -7,24 +7,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: var(--space-3xl);
 }
 
 .boardTitle {
-  font-size: 20px;
+  font-size: var(--text-2xl);
   font-weight: 600;
 }
 
 .columns {
   display: flex;
-  gap: 24px;
+  gap: var(--space-3xl);
   min-height: 500px;
   overflow-x: auto;
 }
 
 .loading {
-  padding: 48px;
+  padding: var(--space-5xl);
   text-align: center;
-  font-size: 18px;
+  font-size: var(--text-xl);
   color: var(--text-secondary);
 }

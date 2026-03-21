@@ -1,21 +1,21 @@
 .form {
-  padding: 20px;
+  padding: var(--space-2xl);
 }
 
 .error {
-  padding: 12px;
+  padding: var(--space-lg);
   background: #fee;
   color: #c00;
   border-radius: 4px;
-  font-size: 14px;
-  margin-bottom: 16px;
+  font-size: var(--text-md);
+  margin-bottom: var(--space-xl);
 }
 
 .formRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
 }
 
 .field {
@@ -25,17 +25,17 @@
 }
 
 .field label {
-  font-size: 13px;
+  font-size: var(--text-base);
   font-weight: 500;
 }
 
 .field input,
 .field select,
 .field textarea {
-  padding: 10px 12px;
+  padding: var(--space-10) var(--space-lg);
   border: 1px solid var(--border-color);
   border-radius: 4px;
-  font-size: 14px;
+  font-size: var(--text-md);
 }
 
 .field textarea {
@@ -51,13 +51,13 @@
 }
 
 .fieldError {
-  font-size: 12px;
+  font-size: var(--text-sm);
   color: #c00;
 }
 
 .formActions {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  margin-top: 24px;
+  gap: var(--space-lg);
+  margin-top: var(--space-3xl);
 }

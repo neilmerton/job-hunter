@@ -3,13 +3,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: var(--space-3xl);
 }
 
 .card {
   width: 100%;
   max-width: 400px;
-  padding: 32px;
+  padding: var(--space-4xl);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   background: var(--card-bg);
@@ -17,32 +17,32 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: var(--text-4xl);
   font-weight: 700;
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-md);
 }
 
 .subtitle {
-  font-size: 18px;
+  font-size: var(--text-xl);
   font-weight: 500;
   color: var(--text-secondary);
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: var(--space-3xl);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-2xl);
 }
 
 .error {
-  padding: 12px;
+  padding: var(--space-lg);
   background: #fee;
   color: #c00;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: var(--text-md);
 }
 
 .field {
@@ -52,15 +52,15 @@
 }
 
 .field label {
-  font-size: 14px;
+  font-size: var(--text-md);
   font-weight: 500;
 }
 
 .field input {
-  padding: 10px 12px;
+  padding: var(--space-10) var(--space-lg);
   border: 1px solid var(--border-color);
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .field input:focus {
@@ -69,18 +69,18 @@
 }
 
 .fieldError {
-  font-size: 12px;
+  font-size: var(--text-sm);
   color: #c00;
 }
 
 .submit {
-  margin-top: 8px;
+  margin-top: var(--space-md);
 }
 
 .footer {
   text-align: center;
-  margin-top: 24px;
-  font-size: 14px;
+  margin-top: var(--space-3xl);
+  font-size: var(--text-md);
   color: var(--text-secondary);
 }
 
