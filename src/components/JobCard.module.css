@@ -1,7 +1,7 @@
 .card {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
 
   &[draggable="true"] {
     cursor: grab;
@@ -135,7 +135,7 @@
   padding: var(--space-md) var(--space-lg);
   background: #fee;
   color: #c00;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: var(--text-base);
 }
 
@@ -161,7 +161,7 @@
 .field textarea {
   padding: var(--space-md) var(--space-10);
   border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: var(--text-md);
 }
 

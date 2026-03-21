@@ -27,7 +27,7 @@
 
 .navLink {
   border: 1px solid var(--primary);
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-sm);
   color: var(--primary);
   font-size: var(--text-md);
   font-weight: 500;
@@ -41,7 +41,7 @@
 
 .navButton {
   background: var(--primary);
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--primary);
   color: var(--foreground);
   cursor: pointer;

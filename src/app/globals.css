@@ -1,7 +1,10 @@
 :root {
   --background: hsl(0, 0%, 96%);
   --border-color: hsl(0, 0%, 88%);
-  --border-radius: 4px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
   --button-padding: 8px 16px;
   --card-bg: hsl(0, 0%, 100%);
   --danger-color: hsl(0, 100%, 40%);

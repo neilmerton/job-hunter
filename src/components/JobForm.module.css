@@ -6,7 +6,7 @@
   padding: var(--space-lg);
   background: #fee;
   color: #c00;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: var(--text-md);
   margin-bottom: var(--space-xl);
 }
@@ -34,7 +34,7 @@
 .field textarea {
   padding: var(--space-10) var(--space-lg);
   border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: var(--text-md);
 }
 

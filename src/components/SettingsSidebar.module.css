@@ -5,7 +5,7 @@
 }
 
 .sidebarLink {
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   color: var(--primary);
   display: inline-block;
   font-size: var(--text-md);

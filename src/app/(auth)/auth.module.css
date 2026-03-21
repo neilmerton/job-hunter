@@ -11,7 +11,7 @@
   max-width: 400px;
   padding: var(--space-4xl);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   background: var(--card-bg);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
@@ -41,7 +41,7 @@
   padding: var(--space-lg);
   background: #fee;
   color: #c00;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: var(--text-md);
 }
 
@@ -59,7 +59,7 @@
 .field input {
   padding: var(--space-10) var(--space-lg);
   border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 1rem;
 }
 

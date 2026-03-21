@@ -1,7 +1,7 @@
 .column {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -31,7 +31,7 @@
   background: var(--border-color);
   color: var(--text-secondary);
   padding: var(--space-xs) var(--space-md);
-  border-radius: 12px;
+  border-radius: var(--radius-xl);
   font-size: var(--text-base);
   font-weight: 500;
 }
