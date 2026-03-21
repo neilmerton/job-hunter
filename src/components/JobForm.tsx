@@ -31,6 +31,10 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrors({});
@@ -66,7 +70,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
         <input
           id="job-title"
           value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          onChange={(e) => handleChange(e)}
           required
         />
         {errors.title && <span className={styles.fieldError}>{errors.title}</span>}
@@ -77,7 +81,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
         <input
           id="job-company"
           value={formData.company}
-          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+          onChange={(e) => handleChange(e)}
           required
         />
         {errors.company && <span className={styles.fieldError}>{errors.company}</span>}
@@ -89,7 +93,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           id="job-date"
           type="date"
           value={formData.date_applied}
-          onChange={(e) => setFormData({ ...formData, date_applied: e.target.value })}
+          onChange={(e) => handleChange(e)}
           required
         />
       </div>
@@ -118,7 +122,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
         <input
           id="job-contact"
           value={formData.contact_name}
-          onChange={(e) => setFormData({ ...formData, contact_name: e.target.value })}
+          onChange={(e) => handleChange(e)}
         />
       </div>
 
@@ -128,7 +132,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           id="job-email"
           type="email"
           value={formData.contact_email}
-          onChange={(e) => setFormData({ ...formData, contact_email: e.target.value })}
+          onChange={(e) => handleChange(e)}
         />
         {errors.contact_email && (
           <span className={styles.fieldError}>{errors.contact_email}</span>
@@ -141,7 +145,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           id="job-mobile"
           type="tel"
           value={formData.contact_mobile}
-          onChange={(e) => setFormData({ ...formData, contact_mobile: e.target.value })}
+          onChange={(e) => handleChange(e)}
         />
       </div>
 
@@ -150,7 +154,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
         <input
           id="job-source"
           value={formData.source}
-          onChange={(e) => setFormData({ ...formData, source: e.target.value })}
+          onChange={(e) => handleChange(e)}
         />
       </div>
 
@@ -160,7 +164,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           id="job-link"
           type="url"
           value={formData.link}
-          onChange={(e) => setFormData({ ...formData, link: e.target.value })}
+          onChange={(e) => handleChange(e)}
         />
         {errors.link && <span className={styles.fieldError}>{errors.link}</span>}
       </div>
@@ -170,7 +174,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
         <textarea
           id="job-description"
           value={formData.description}
-          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          onChange={(e) => handleChange(e)}
           rows={4}
         />
       </div>
