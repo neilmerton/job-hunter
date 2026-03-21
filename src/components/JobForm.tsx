@@ -70,6 +70,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           <label htmlFor="job-title">Job title</label>
           <input
             id="job-title"
+            name="title"
             value={formData.title}
             onChange={(e) => handleChange(e)}
             required
@@ -81,6 +82,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           <label htmlFor="job-company">Company</label>
           <input
             id="job-company"
+            name="company"
             value={formData.company}
             onChange={(e) => handleChange(e)}
             required
@@ -92,6 +94,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           <label htmlFor="job-date">Date applied</label>
           <input
             id="job-date"
+            name="date_applied"
             type="date"
             value={formData.date_applied}
             onChange={(e) => handleChange(e)}
@@ -122,6 +125,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           <label htmlFor="job-contact">Contact name</label>
           <input
             id="job-contact"
+            name="contact_name"
             value={formData.contact_name}
             onChange={(e) => handleChange(e)}
           />
@@ -131,6 +135,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           <label htmlFor="job-email">Contact email</label>
           <input
             id="job-email"
+            name="contact_email"
             type="email"
             value={formData.contact_email}
             onChange={(e) => handleChange(e)}
@@ -144,6 +149,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           <label htmlFor="job-mobile">Contact mobile</label>
           <input
             id="job-mobile"
+            name="contact_mobile"
             type="tel"
             value={formData.contact_mobile}
             onChange={(e) => handleChange(e)}
@@ -154,6 +160,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           <label htmlFor="job-source">Source</label>
           <input
             id="job-source"
+            name="source"
             value={formData.source}
             onChange={(e) => handleChange(e)}
           />
@@ -163,6 +170,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           <label htmlFor="job-link">Link</label>
           <input
             id="job-link"
+            name="link"
             type="url"
             value={formData.link}
             onChange={(e) => handleChange(e)}
@@ -174,6 +182,7 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
           <label htmlFor="job-description">Description</label>
           <textarea
             id="job-description"
+            name="description"
             value={formData.description}
             onChange={(e) => handleChange(e)}
             rows={6}
