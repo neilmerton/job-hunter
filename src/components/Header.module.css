@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xl) var(--space-3xl);
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.title {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.navLink {
+  font-size: var(--text-md);
+  color: var(--primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+}
