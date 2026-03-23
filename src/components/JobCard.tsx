@@ -76,17 +76,20 @@ export default function JobCard({ job, onDeleted }: JobCardProps) {
     setErrors({});
 
     const result = jobUpdateSchema.safeParse(formData);
+    
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
       result.error.issues.forEach((err) => {
         const path = err.path?.[0] as string | undefined;
         if (path && !fieldErrors[path]) fieldErrors[path] = err.message;
       });
+      
       setErrors(fieldErrors);
       return;
     }
 
     setSaving(true);
+
     const dateIso = new Date(result.data.date).toISOString();
     const { error, data } = await addJobUpdate(dateIso, result.data.description);
 
@@ -204,16 +207,20 @@ export default function JobCard({ job, onDeleted }: JobCardProps) {
                 <Button type="submit" variant="primary" disabled={saving}>
                   {saving ? 'Adding...' : 'Add update'}
                 </Button>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  className={styles.deleteButton}
-                  onClick={handleDeleteJob}
-                >
-                  Delete job
-                </Button>
               </div>
             </form>
+
+            <footer className={styles.jobActions}>
+              <p>Caution: action is irreversible:</p>
+              <Button
+                type="button"
+                variant="secondary"
+                className={styles.deleteButton}
+                onClick={handleDeleteJob}
+              >
+                Delete job
+              </Button>
+            </footer>
           </div>
         </div>
       </details>

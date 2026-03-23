@@ -40,7 +40,7 @@
 .error {
   padding: var(--space-lg);
   background: #fee;
-  color: #c00;
+  color: var(--danger-color);
   border-radius: var(--radius-sm);
   font-size: var(--text-md);
 }
@@ -70,7 +70,7 @@
 
 .fieldError {
   font-size: var(--text-sm);
-  color: #c00;
+  color: var(--danger-color);
 }
 
 .submit {
