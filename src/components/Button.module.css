@@ -27,6 +27,12 @@
   background: var(--primary-hover);
 }
 
+.primary:focus:not(:disabled),
+.secondary:focus:not(:disabled) {
+  box-shadow: 0 0 0 0.2rem var(--primary-hover);
+  outline: none;
+}
+
 .secondary {
   background: transparent;
   border: 1px solid var(--border-color);

@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, type SubmitEvent } from 'react';
 import { jobVacancySchema, type JobVacancyInput } from '@/lib/validations/job';
+import { useState, type SubmitEvent } from 'react';
 import Button from './Button';
 import styles from './JobForm.module.css';
 

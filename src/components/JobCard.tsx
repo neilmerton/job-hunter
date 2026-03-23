@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState, type SubmitEvent } from 'react';
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { useJobUpdates } from '@/hooks/useJobUpdates';
+import { jobUpdateSchema, type JobUpdateInput } from '@/lib/validations/job';
 import { jobService } from '@/services/jobService';
 import type { JobVacancy } from '@/types/job';
-import { jobUpdateSchema, type JobUpdateInput } from '@/lib/validations/job';
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { useEffect, useRef, useState, type SubmitEvent } from 'react';
 import Button from './Button';
 import styles from './JobCard.module.css';
 

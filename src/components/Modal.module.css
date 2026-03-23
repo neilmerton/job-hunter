@@ -70,13 +70,16 @@
 }
 
 .closeButton {
+  aspect-ratio: 1 / 1;
   background: none;
   border: none;
   font-size: var(--text-3xl);
   cursor: pointer;
+  height: var(--space-4xl);
   color: var(--text-secondary);
   line-height: 1;
   padding: 0;
+  width: var(--space-4xl);
 }
 
 .closeButton:hover {

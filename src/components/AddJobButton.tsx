@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { jobService } from '@/services/jobService';
-import { authService } from '@/services/authService';
-import type { JobVacancy } from '@/types/job';
 import type { JobVacancyInput } from '@/lib/validations/job';
+import { authService } from '@/services/authService';
+import { jobService } from '@/services/jobService';
+import type { JobVacancy } from '@/types/job';
 import dynamic from 'next/dynamic';
-import Modal from './Modal';
+import { useEffect, useState } from 'react';
 import Button from './Button';
+import Modal from './Modal';
 
 const JobForm = dynamic(() => import('./JobForm'), { ssr: false });
 
@@ -71,7 +71,7 @@ export default function AddJobButton({ onJobAdded }: AddJobButtonProps) {
           <JobForm
             onSubmit={handleAddJob}
             onCancel={closeModal}
-            submitText="Add job"
+            submitText="Save job"
           />
         )}
       </Modal>

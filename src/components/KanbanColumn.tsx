@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import type { JobStatus, JobVacancy } from '@/types/job';
 import {
   dropTargetForElements,
   monitorForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import type { JobVacancy, JobStatus } from '@/types/job';
+import { useEffect, useRef, useState } from 'react';
 import JobCard from './JobCard';
 import styles from './KanbanColumn.module.css';
 

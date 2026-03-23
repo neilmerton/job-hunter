@@ -2,9 +2,9 @@
 
 import { useJobs } from '@/hooks/useJobs';
 import type { JobStatus } from '@/types/job';
-import KanbanColumn from './KanbanColumn';
 import AddJobButton from './AddJobButton';
 import styles from './KanbanBoard.module.css';
+import KanbanColumn from './KanbanColumn';
 
 const COLUMN_LABELS: Record<JobStatus, string> = {
   applied: 'Applied',

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import LogoutButton from './LogoutButton';
 import styles from './Header.module.css';
+import LogoutButton from './LogoutButton';
 
 interface HeaderProps {
   currentView: 'board' | 'settings';
