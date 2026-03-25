@@ -60,7 +60,7 @@ export default function AddJobButton({ onJobAdded }: AddJobButtonProps) {
         type="button" 
         commandfor={dialogId} 
         command="show-modal"
-        variant="primary"
+        color="primary"
         onClick={() => setIsOpen(true)}
       >
         Add

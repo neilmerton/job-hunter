@@ -191,10 +191,10 @@ export default function JobForm({ initialData, onSubmit, onCancel, submitText = 
       </section>
 
       <footer className={styles.formActions}>
-        <Button variant="secondary" onClick={onCancel}>
+        <Button color="secondary" variant="outlined" onClick={onCancel}>
           Cancel
         </Button>
-        <Button type="submit" variant="primary" disabled={loading}>
+        <Button type="submit" color="primary" disabled={loading}>
           {loading ? 'Saving...' : submitText}
         </Button>
       </footer>

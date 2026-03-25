@@ -18,7 +18,7 @@ export default function LogoutButton({ className }: { className?: string }) {
   }
 
   return (
-    <Button type="button" onClick={handleLogout} className={className} variant="secondary">
+    <Button type="button" onClick={handleLogout} className={className} color="secondary" variant="outlined">
       Log out
     </Button>
   );

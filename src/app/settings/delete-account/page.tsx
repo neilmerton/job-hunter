@@ -69,13 +69,15 @@ export default function DeleteAccountSettingsPage() {
           )}
         </div>
 
-        <Button
-          type="submit"
-          className={styles.dangerButton}
-          disabled={loading || confirmText !== CONFIRM_TEXT}
-        >
-          {loading ? 'Deleting...' : 'Delete account'}
-        </Button>
+        <footer className={styles.formActions}>
+          <Button
+            type="submit"
+            color="danger"
+            disabled={loading || confirmText !== CONFIRM_TEXT}
+          >
+            {loading ? 'Deleting...' : 'Delete account'}
+          </Button>
+        </footer>
       </form>
     </div>
   );

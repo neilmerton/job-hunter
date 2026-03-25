@@ -1,44 +1,109 @@
 .button {
-  padding: var(--space-10) var(--space-2xl);
+  align-items: center;
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
   font-size: var(--text-md);
   font-weight: 500;
-  cursor: pointer;
-  font-family: inherit;
-  transition: background-color 0.2s, opacity 0.2s;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   gap: var(--space-md);
+  justify-content: center;
+  padding: var(--space-10) var(--space-xl);
+  transition: background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    opacity 0.2s;
 }
 
 .button:disabled {
-  opacity: 0.7;
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
-.primary {
-  background: var(--primary);
+/* Primary color mapping */
+.primary.solid {
+  background-color: var(--primary);
+  border-color: var(--primary);
   color: white;
-  border: none;
 }
 
-.primary:hover:not(:disabled) {
-  background: var(--primary-hover);
+.primary.solid:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
-.primary:focus:not(:disabled),
-.secondary:focus:not(:disabled) {
-  box-shadow: 0 0 0 0.2rem var(--primary-hover);
-  outline: none;
+.primary.outlined {
+  background-color: transparent;
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
-.secondary {
-  background: transparent;
-  border: 1px solid var(--border-color);
+.primary.outlined:hover:not(:disabled) {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* Secondary color mapping */
+.secondary.solid {
+  background-color: var(--border-color);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.secondary.solid:hover:not(:disabled) {
+  background-color: var(--text-secondary);
+  color: white;
+  border-color: var(--text-secondary);
+}
+
+.secondary.outlined {
+  background-color: transparent;
+  border-color: var(--border-color);
   color: inherit;
 }
 
-.secondary:hover:not(:disabled) {
-  background: var(--border-color);
+.secondary.outlined:hover:not(:disabled) {
+  background-color: var(--border-color);
+}
+
+/* Danger color mapping */
+.danger.solid {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+  color: white;
+}
+
+.danger.solid:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.danger.outlined {
+  background-color: transparent;
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+}
+
+.danger.outlined:hover:not(:disabled) {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+/* Focus styles */
+.primary:focus:not(:disabled),
+.secondary:focus:not(:disabled),
+.danger:focus:not(:disabled) {
+  outline: none;
+}
+
+.primary:focus:not(:disabled) {
+  box-shadow: 0 0 0 0.2rem var(--primary-hover);
+}
+
+.secondary:focus:not(:disabled) {
+  box-shadow: 0 0 0 0.2rem var(--border-color);
+}
+
+.danger:focus:not(:disabled) {
+  box-shadow: 0 0 0 0.2rem var(--danger-color);
 }

@@ -91,9 +91,11 @@ export default function ProfileSettingsPage() {
           {errors.displayName && <span className={styles.fieldError}>{errors.displayName}</span>}
         </div>
 
-        <Button type="submit" className={styles.submit} disabled={loading}>
-          {loading ? 'Saving...' : 'Save changes'}
-        </Button>
+        <footer className={styles.formActions}>
+          <Button type="submit" disabled={loading}>
+            {loading ? 'Saving...' : 'Save changes'}
+          </Button>
+        </footer>
       </form>
     </div>
   );

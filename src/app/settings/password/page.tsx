@@ -112,9 +112,11 @@ export default function PasswordSettingsPage() {
           )}
         </div>
 
-        <Button type="submit" className={styles.submit} disabled={loading}>
-          {loading ? 'Updating...' : 'Update password'}
-        </Button>
+        <footer className={styles.formActions}>
+          <Button type="submit" disabled={loading}>
+            {loading ? 'Updating...' : 'Update password'}
+          </Button>
+        </footer>
       </form>
     </div>
   );

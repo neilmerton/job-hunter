@@ -73,17 +73,18 @@ export default function ExportSettingsPage() {
     <div>
       <h2 className={styles.pageTitle}>Export data</h2>
       <p className={styles.pageDescription}>
-        Download all your job vacancy data as a CSV file.
+        Download all your job vacancy data as a CSV file. The filename will include today's date.
       </p>
 
-      <Button
-        type="button"
-        onClick={handleExport}
-        className={styles.submit}
-        disabled={loading}
-      >
-        {loading ? 'Exporting...' : 'Export to CSV'}
-      </Button>
+      <footer className={styles.formActions}>
+        <Button
+          type="button"
+          disabled={loading}
+          onClick={handleExport}
+        >
+          {loading ? 'Exporting...' : 'Export to CSV'}
+        </Button>
+      </footer>
     </div>
   );
 }

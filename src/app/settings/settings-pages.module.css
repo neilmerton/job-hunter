@@ -79,17 +79,7 @@
   color: var(--danger-color);
 }
 
-.submit {
-  width: fit-content;
-}
-
-.dangerButton {
-  background: var(--danger-color);
-  color: white;
-  border: none;
-  width: fit-content;
-}
-
-.dangerButton:hover:not(:disabled) {
-  background: hsl(0, 100%, 30%);
+.formActions {
+  display: flex;
+  justify-content: flex-end;
 }

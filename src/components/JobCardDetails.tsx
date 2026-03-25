@@ -157,7 +157,7 @@ export default function JobCardDetails({ job, expanded, onDeleted }: JobCardDeta
           </div>
 
           <div className={styles.formActions}>
-            <Button type="submit" variant="primary" disabled={saving}>
+            <Button type="submit" color="primary" disabled={saving}>
               {saving ? 'Adding...' : 'Add update'}
             </Button>
           </div>
@@ -167,7 +167,8 @@ export default function JobCardDetails({ job, expanded, onDeleted }: JobCardDeta
           <p>Caution: action is irreversible</p>
           <Button
             type="button"
-            variant="secondary"
+            color="danger"
+            variant="outlined"
             className={styles.deleteButton}
             onClick={handleDeleteJob}
           >
