@@ -9,7 +9,7 @@
   color: var(--primary);
   display: inline-block;
   font-size: var(--text-md);
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-lg) var(--space-xl);
   text-decoration: none;
 
   &:hover {

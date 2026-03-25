@@ -11,13 +11,13 @@
 }
 
 .warning {
-  padding: var(--space-xl);
-  background: #fef3cd;
+  background-color: #fef3cd;
   border: 1px solid var(--warning-color);
   border-radius: var(--radius-sm);
-  color: var(--warning-color);
-  margin-bottom: var(--space-xl);
+  color: var(--text-warning);
   font-size: var(--text-md);
+  margin-bottom: var(--space-xl);
+  padding: var(--space-xl);
 }
 
 .form {

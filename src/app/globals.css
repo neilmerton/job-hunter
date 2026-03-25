@@ -13,7 +13,8 @@
   --primary: hsl(220, 83%, 53%);
   --text-primary: hsl(0, 0%, 9%);
   --text-secondary: hsl(0, 0%, 40%);
-  --warning-color: hsl(45, 100%, 51%);
+  --text-warning: hsl(45, 100%, 35%);
+  --warning-color: hsl(45, 100%, 50%);
   --modal-header-height: 64px;
 
   /* Spacing */
