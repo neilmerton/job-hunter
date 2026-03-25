@@ -1,11 +1,7 @@
 'use client';
 
 import type { JobStatus, JobVacancy } from '@/types/job';
-import {
-  dropTargetForElements,
-  monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import JobCard from './JobCard';
 import styles from './KanbanColumn.module.css';
 
@@ -26,44 +22,54 @@ export default function KanbanColumn({
   onJobUpdated,
   onJobDeleted,
 }: KanbanColumnProps) {
-  const columnRef = useRef<HTMLDivElement>(null);
   const [isDraggedOver, setIsDraggedOver] = useState(false);
+  const dragCounter = useRef(0);
 
-  useEffect(() => {
-    const el = columnRef.current;
-    if (!el) return;
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    dragCounter.current += 1;
+    if (e.dataTransfer.types.includes('application/json')) {
+      setIsDraggedOver(true);
+    }
+  };
 
-    return dropTargetForElements({
-      element: el,
-      getData: () => ({ status }),
-      onDragEnter: () => setIsDraggedOver(true),
-      onDragLeave: () => setIsDraggedOver(false),
-      onDrop: () => setIsDraggedOver(false),
-    });
-  }, [status]);
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    dragCounter.current -= 1;
+    if (dragCounter.current === 0) {
+      setIsDraggedOver(false);
+    }
+  };
 
-  useEffect(() => {
-    return monitorForElements({
-      onDrop: ({ source, location }) => {
-        const destination = location.current.dropTargets[0];
-        if (!destination?.data.status) return;
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault(); // Required to allow drop
+  };
 
-        const jobId = source.data.jobId as string | undefined;
-        const sourceStatus = source.data.status as JobStatus | undefined;
-        const destStatus = destination.data.status as JobStatus;
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    dragCounter.current = 0;
+    setIsDraggedOver(false);
 
-        if (jobId && sourceStatus !== destStatus) {
-          onStatusChange(jobId, destStatus);
-        }
-      },
-    });
-  }, [onStatusChange]);
+    try {
+      const dataStr = e.dataTransfer.getData('application/json');
+      if (!dataStr) return;
+      
+      const data = JSON.parse(dataStr);
+      if (data.jobId && data.status !== status) {
+        onStatusChange(data.jobId, status);
+      }
+    } catch (err) {
+      console.error('Failed to parse dropped data', err);
+    }
+  };
 
   return (
     <div
-      ref={columnRef}
       className={`${styles.column} ${isDraggedOver ? styles.draggedOver : ''}`}
       data-status={status}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
     >
       <div className={styles.columnHeader}>
         <h3 className={styles.columnTitle}>{title}</h3>

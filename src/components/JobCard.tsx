@@ -1,8 +1,7 @@
 'use client';
 
 import type { JobVacancy } from '@/types/job';
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import styles from './JobCard.module.css';
 import JobCardDetails from './JobCardDetails';
 
@@ -22,31 +21,32 @@ function formatDate(dateStr: string) {
 }
 
 export default function JobCard({ job, onDeleted }: JobCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
-  useEffect(() => {
-    const el = cardRef.current;
-    if (!el) return;
-
-    return draggable({
-      element: el,
-      canDrag: () => !expanded,
-      getInitialData: () => ({
+  const handleDragStart = (e: React.DragEvent<HTMLElement>) => {
+    setIsDragging(true);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData(
+      'application/json',
+      JSON.stringify({
         jobId: job.id,
         status: job.status,
-      }),
-      onDragStart: () => setIsDragging(true),
-      onDrop: () => setIsDragging(false),
-    });
-  }, [job.id, job.status, expanded]);
+      })
+    );
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+  };
 
   return (
     <article
-      ref={cardRef}
       className={`${styles.card} ${isDragging ? styles.dragging : ''}`}
       data-job-id={job.id}
+      draggable={!expanded}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
     >
       <button
         type="button"
