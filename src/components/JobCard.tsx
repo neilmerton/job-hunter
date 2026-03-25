@@ -123,20 +123,21 @@ export default function JobCard({ job, onDeleted }: JobCardProps) {
       className={`${styles.card} ${isDragging ? styles.dragging : ''}`}
       data-job-id={job.id}
     >
-      <details
-        className={styles.details}
-        open={expanded}
-        onToggle={(e) => setExpanded((e.target as HTMLDetailsElement).open)}
+      <button
+        type="button"
+        className={styles.cardHeader}
+        onClick={() => setExpanded(!expanded)}
+        aria-expanded={expanded}
       >
-        <summary className={styles.summary}>
-          <div className={styles.cardMain}>
-            <h4 className={styles.cardTitle}>{job.title}</h4>
-            <p className={styles.cardCompany}>{job.company}</p>
-            <p className={styles.cardDate}>{formatDate(job.date_applied)}</p>
-          </div>
-          <span className={styles.expandIcon}>{expanded ? '−' : '+'}</span>
-        </summary>
+        <div className={styles.cardMain}>
+          <h4 className={styles.cardTitle}>{job.title}</h4>
+          <p className={styles.cardCompany}>{job.company}</p>
+          <p className={styles.cardDate}>{formatDate(job.date_applied)}</p>
+        </div>
+        <span className={styles.expandIcon}>{expanded ? '−' : '+'}</span>
+      </button>
 
+      {expanded && (
         <div className={styles.expandedContent}>
           <div className={styles.extraInfo}>
             {job.contact_name && (
@@ -223,7 +224,7 @@ export default function JobCard({ job, onDeleted }: JobCardProps) {
             </footer>
           </div>
         </div>
-      </details>
+      )}
     </article>
   );
 }

@@ -3,12 +3,12 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
 
-  &[draggable="true"] summary {
+  &[draggable="true"] .cardHeader {
     cursor: grab;
   }
 }
 
-.card:active summary {
+.card:active .cardHeader {
   cursor: grabbing;
 }
 
@@ -16,21 +16,25 @@
   opacity: 0.5;
 }
 
-.details {
+.cardHeader {
+  align-items: flex-start;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  font-family: inherit;
+  gap: var(--space-md);
+  justify-content: space-between;
+  padding: var(--space-lg) var(--space-xl);
+  text-align: left;
+  user-select: none;
   width: 100%;
 }
 
-.summary {
-  align-items: flex-start;
-  display: flex;
-  gap: var(--space-md);
-  justify-content: space-between;
-  list-style: none;
-  padding: var(--space-lg) var(--space-xl);
-}
-
-.summary::-webkit-details-marker {
-  display: none;
+.cardHeader:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
 }
 
 .cardMain {
