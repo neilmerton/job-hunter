@@ -33,8 +33,9 @@
 }
 
 .cardHeader:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: -2px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 0 0.2rem var(--primary-hover);
+  outline: none;
 }
 
 .cardMain {
